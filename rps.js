@@ -33,3 +33,13 @@ function playRound(playerSelection, computerSelection) {
 const playerSelection = "rock";
 const computerSelection = getComputerChoice();
 console.log(playRound(playerSelection, computerSelection));
+
+// Constraint 1: Allow user to play a 5 round game
+// Constraint 2: Keep score 
+// Constraint 3: Report winner or loser at end of game
+// Give user directions
+// Ask user for their selection
+// Process their selection using playRound()
+// Tally score for user, computer, and tie
+// Return result of round and total scores tally
+// After 5 rounds declare a tie or winner  
