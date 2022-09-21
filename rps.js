@@ -1,6 +1,11 @@
 // No input
 // Randomly select 'Rock', 'Paper', or 'Scissors'
 // Return result
+const CHOICES = ['Rock', 'Paper', 'Scissors'];
+function getComputerChoice() {
+    let random123 = Math.floor(Math.random() * 3);
+    return CHOICES[random123];
+}
 
 // Two parameters: playerSelection & computerSelection
 // Run only a single round of the game
