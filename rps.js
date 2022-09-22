@@ -2,6 +2,9 @@
 // Randomly select 'Rock', 'Paper', or 'Scissors'
 // Return result
 const CHOICES = ['rock', 'paper', 'scissors'];
+let playerScore = 0;
+let computerScore = 0;
+let tieScore = 0;
 
 function getComputerChoice() {
     let random123 = Math.floor(Math.random() * 3);
@@ -17,71 +20,41 @@ function playRound(playerSelection, computerSelection) {
 
     // Compare the two parameters to determine winner
     if (playerSelection === computerSelection) {
-        return `Tie!`;
-    } else if ( // If player wins, return "You Win! ${playerSelection} beats ${computerSelection}"
-        (playerSelection == 'rock' && computerSelection == 'scissors') ||
-        (playerSelection == 'scissors' && computerSelection == 'paper') ||
-        (playerSelection == 'paper' && computerSelection == 'rock')
-    ) {
-        return `You win this round! ${playerSelection} beats ${computerSelection}`;
-    } else { // if computer wins, return "You Lose! ${computerSelection} beats ${playerSelection}"
-        return `You lose this round! ${computerSelection} beats ${playerSelection}`;
-    }
-
-}
-
-
-// Constraint 1: Allow user to play a 5 round game
-// Constraint 2: Keep score 
-// Constraint 3: Report winner or loser at end of game
-function game() {
-    let roundNumber;
-    let playerScore = 0;
-    let computerScore = 0;
-    let tieScore = 0;
-    let playerSelection;
-    let computerSelection;
-
-
-    playerSelection = prompt(`Choose rock, paper, or scissors.`);
-
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = getComputerChoice();
-
-    // Process their selection using playRound()
-    console.log(playRound(playerSelection, computerSelection));
-
-    // Tally score for user, computer, and tie
-    if (playerSelection === computerSelection) { // If a tie, then tally a tie point
         tieScore++;
-    } else if ( // If player wins, return give them a point
+        document.querySelector('.tieScore').textContent  = tieScore;
+        return `Tie!`;
+    } else if ( // If player wins, add point and return "You Win! ${playerSelection} beats ${computerSelection}"
         (playerSelection == 'rock' && computerSelection == 'scissors') ||
         (playerSelection == 'scissors' && computerSelection == 'paper') ||
         (playerSelection == 'paper' && computerSelection == 'rock')
     ) {
         playerScore++;
-    } else { // if computer wins, then give it a point
-        console.log("C: " + computerSelection + " and P: " + playerSelection);
+        document.querySelector('.playerScore').textContent = playerScore;
+        return `You win this round! ${playerSelection} beats ${computerSelection}`;
+    } else { // if computer wins, add point and return "You Lose! ${computerSelection} beats ${playerSelection}"
         computerScore++;
+        document.querySelector('.computerScore').textContent = computerScore;
+        return `You lose this round! ${computerSelection} beats ${playerSelection}`;
     }
-
-    if (roundNumber === 5) {
-        if (playerScore > computerScore) {
-            return console.log("YOU WON THE GAME!");
-        } else if (playerScore < computerScore) {
-            return console.log("The computer won the game!");
-        } else {
-            return console.log("The game ends in a tie!");
-        }
-    }
-
 }
 
 const buttons = document.querySelectorAll('button');
-console.log(buttons);
+const body = document.querySelector('body');
+let result = document.createElement('div');
+
 buttons.forEach((button) => {
-    console.log(button);
     button.addEventListener('click', (e) => {
-        console.log(playRound(button.id, getComputerChoice() ))
+        
+        if (computerScore === 5) {
+            result.textContent = "The computer won the game!";
+            body.appendChild(result);
+        } else if (playerScore === 5) {
+            result.textContent = "YOU WON THE GAME!";
+            body.appendChild(result);
+        } else {
+            result.textContent = playRound(button.id, getComputerChoice());
+            body.appendChild(result);
+        }
+        
     });
 })
