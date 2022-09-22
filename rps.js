@@ -76,8 +76,4 @@ function game() {
     }
 
 }
-game()
 
-
-
-// After 5 rounds declare a tie or winner  
